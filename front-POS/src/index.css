@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+html,
+body,
+#root {
+  min-height: 100vh;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --bg: #ffffff;
+  --text: #202020;
+  --card: #f4f4f5;
+  --subtitle: #2c2c2c;
+  --border: #d4d4d8;
+}
+
+.dark {
+  --bg: #202020;
+  --text: #ffffff;
+  --card: #27272a;
+  --subtitle: #b7b7b7;
+  --border: #3f3f46;
+
+}
+
+@theme {
+  --color-income: #53B257;
+  --color-income-bg: #e6ffe7;
+
+  --color-expense: #fe6156;
+  --color-expense-bg: #fbcbc9;
+
+  --color-error: #F54E41;
+  --color-success: #9046FF;
+
+  --color-primary: #00F34A;
+  --color-secondary: #DAC1FF;
+
+  --color-selector: #BF94FF;
+
+  --color-green: #53B257;
+  --color-red: #F54E41;
+
+  --color-overlay: rgba(210, 110, 249, 0.1);
+
+  --shadow-gray: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
