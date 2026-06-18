@@ -20,7 +20,7 @@ export const LoginTemplate = () => {
         </form>
         <Divider>
           <span className="text-lg font-bold relative z-20 bg-(--bg) px-2">
-            0
+            O
           </span>
         </Divider>
         <BtnSave
@@ -37,12 +37,3 @@ export const LoginTemplate = () => {
 };
 
 // <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username">
-
-//! 1:45:20
-//! 1:45:20
-//! 1:45:20
-//! 1:45:20
-//! 1:45:20
-//! 1:45:20
-//! 1:45:20
-//! 1:45:20
