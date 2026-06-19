@@ -4,7 +4,6 @@ import {MyRoutes} from './routers';
 import {useAuthStore, useThemeStore} from './store';
 import clsx from 'clsx';
 import {useEffect, useState} from 'react';
-import {Login} from './pages';
 
 function App() {
   // const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -52,19 +51,11 @@ export default App;
 
 //! https://www.youtube.com/watch?v=URG4rnmdThs&t=441s
 
-//! 2:42:00
-//! 2:42:00
-//! 2:42:00
-//! 2:42:00
-//! 2:42:00
-//! 2:42:00
-//! 2:42:00
-//! 2:42:00
-//! 2:42:00
-//! 2:42:00
-//! 2:42:00
-//! 2:42:00
-//! 2:42:00
-//! 2:42:00
-//! 2:42:00
-//! 2:42:00
+//! 3:18:00
+//! 3:18:00
+//! 3:18:00
+//! 3:18:00
+//! 3:18:00
+//! 3:18:00
+//! 3:18:00
+//! 3:18:00

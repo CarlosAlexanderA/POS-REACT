@@ -2,7 +2,7 @@ import {useAuthStore} from '../../store';
 
 export const HomeTemplate = () => {
   const {cerrarSesion, user} = useAuthStore();
-  console.log(user);
+  // console.log(user);
 
   return (
     <div>

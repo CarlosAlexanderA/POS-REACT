@@ -4,7 +4,7 @@ import {useAuthStore} from '../store';
 export const ProtectedRoute = ({redirectTo}: {redirectTo: string}) => {
   const user = useAuthStore((state) => state.user);
 
-  console.log('ProtectedRoute', {user});
+  // console.log('ProtectedRoute', {user});
 
   //? Mientras react hidrata la session
   if (user === undefined) {
