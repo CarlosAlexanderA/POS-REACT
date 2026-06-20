@@ -24,7 +24,11 @@ export const BtnSave = ({icon: Icon, title, className, func}: ButtonProps) => {
       type="submit"
       onClick={func}
     >
-      <span>{Icon && <Icon />}</span>
+      {Icon && (
+        <span>
+          <Icon />
+        </span>
+      )}
       <span>{title}</span>
     </button>
   );

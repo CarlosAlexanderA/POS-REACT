@@ -3,11 +3,12 @@ import {supabase} from './supabase.config';
 
 type Category = {
   name: string;
-  description?: string;
-  state: string;
+  color?: string;
+  icon?: string;
+  company_id?: number;
 };
 
-const tableCateg = 'categories';
+const table = 'categories';
 
 export async function insertCategories(p: Category, file?: File | undefined) {
   const {error, data} = await supabase.rpc('insertCategories', p);
@@ -71,7 +72,7 @@ async function updateIconCategories(p: {id: number; icon?: string}) {
 
 export async function showCategories(p: {company_id: number}) {
   const {data} = await supabase
-    .from(tableCateg)
+    .from(table)
     .select()
     .eq('company_id', p.company_id)
     .order('id', {ascending: false});

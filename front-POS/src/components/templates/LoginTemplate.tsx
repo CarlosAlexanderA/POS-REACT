@@ -1,4 +1,4 @@
-import {useAuthStore} from '../../store';
+import {useAuthStore, useCompnayStore} from '../../store';
 import {v} from '../../styles';
 import {Divider} from '../atoms/Divider';
 import {InputText} from '../atoms/InputText';
@@ -8,7 +8,7 @@ import {Footer} from '../organisms/Footer';
 
 export const LoginTemplate = () => {
   const {loginGoogle} = useAuthStore();
-
+  const {insertCompany} = useCompnayStore();
   return (
     <section className="h-screen flex justify-center items-center flex-col">
       <div className="flex flex-col gap-6 items-center w-2xs sm:w-sm md:w-md h-full justify-center">
@@ -28,6 +28,15 @@ export const LoginTemplate = () => {
           title={'Google'}
           icon={v.iconogoogle}
           className="px-16 bg-white text-black border-zinc-200 border-2 hover:bg-zinc-200 w-fit"
+        />
+        <BtnSave
+          title="Insertar"
+          func={async () => {
+            const param = {
+              name: 'prueba 2',
+            };
+            await insertCompany(param);
+          }}
         />
       </div>
 
