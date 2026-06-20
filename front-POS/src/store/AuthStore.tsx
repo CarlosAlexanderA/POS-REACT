@@ -1,6 +1,6 @@
 import {create} from 'zustand';
 import type {User} from '@supabase/supabase-js';
-import {supabase} from '../supabase';
+import {showUsers, supabase} from '../supabase';
 
 interface AuthStore {
   user: User | null | undefined;
@@ -16,9 +16,10 @@ export const useAuthStore = create<AuthStore>((set) => ({
   setUser: (user) => set({user}),
 
   loginGoogle: async () => {
-    await supabase.auth.signInWithOAuth({
+    const {data, error} = await supabase.auth.signInWithOAuth({
       provider: 'google',
     });
+    console.log(data);
   },
   cerrarSesion: async () => {
     const {error} = await supabase.auth.signOut();
@@ -37,6 +38,16 @@ export const useAuthStore = create<AuthStore>((set) => ({
     supabase.auth.onAuthStateChange((event, session) => {
       console.log('EVENT: ', event);
       set({user: session?.user ?? null});
+      console.log('session: ', session?.user);
+
+      if (session) {
+        const getUsers = async () => {
+          const users = await showUsers({auth_id: session?.user.id});
+
+          console.log('user Res: ', users);
+        };
+        getUsers();
+      }
     });
   },
 }));

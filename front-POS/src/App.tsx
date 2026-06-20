@@ -13,7 +13,9 @@ function App() {
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
   }, [theme]);
-  useAuthStore.getState().initAuth();
+  useEffect(() => {
+    useAuthStore.getState().initAuth();
+  }, []);
 
   // ? obteniendo la ruta para eliminar el sidebar en login o sign in
   const location = useLocation();
@@ -50,12 +52,3 @@ function App() {
 export default App;
 
 //! https://www.youtube.com/watch?v=URG4rnmdThs&t=441s
-
-//! 3:18:00
-//! 3:18:00
-//! 3:18:00
-//! 3:18:00
-//! 3:18:00
-//! 3:18:00
-//! 3:18:00
-//! 3:18:00
