@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 import {supabase} from './supabase.config';
 
-type Category = {
+type CategoryProps = {
   name: string;
   color?: string;
   icon?: string;
@@ -10,7 +10,10 @@ type Category = {
 
 const table = 'categories';
 
-export async function insertCategories(p: Category, file?: File | undefined) {
+export async function insertCategories(
+  p: CategoryProps,
+  file?: File | undefined,
+) {
   const {error, data} = await supabase.rpc('insertCategories', p);
 
   if (error) {

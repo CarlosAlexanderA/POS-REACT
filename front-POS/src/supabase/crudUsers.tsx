@@ -1,20 +1,20 @@
 import {supabase} from './supabase.config';
 
-type User = {
+export type UserProps = {
   name?: string;
-  doc_type_id?: number;
+  doc_type_id: number | null;
   num_doc?: string;
   phone?: string;
-  rol_id?: number;
-  email?: string;
-  date?: Date;
+  rol_id: number;
+  email: string;
+  registration_date: Date;
   address?: string;
   state?: string;
-  auth_id?: string;
+  auth_id: string;
 };
 
 const table = 'users';
-export async function showUsers(p: User) {
+export async function showUsers(p: {auth_id: string}) {
   const {data} = await supabase
     .from(table)
     .select()
@@ -22,4 +22,8 @@ export async function showUsers(p: User) {
     .maybeSingle();
 
   return data;
+}
+
+export async function insertAdmin(p: UserProps) {
+  await supabase.from(table).insert(p);
 }

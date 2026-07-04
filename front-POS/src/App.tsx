@@ -14,7 +14,17 @@ function App() {
     document.documentElement.classList.toggle('dark', theme === 'dark');
   }, [theme]);
   useEffect(() => {
-    useAuthStore.getState().initAuth();
+    let unsubscribe: (() => void) | undefined;
+
+    const startAuth = async () => {
+      unsubscribe = await useAuthStore.getState().initAuth();
+    };
+
+    startAuth();
+
+    return () => {
+      unsubscribe?.();
+    };
   }, []);
 
   // ? obteniendo la ruta para eliminar el sidebar en login o sign in

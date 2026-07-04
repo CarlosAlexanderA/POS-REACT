@@ -1,11 +1,19 @@
 import {create} from 'zustand';
 import type {User} from '@supabase/supabase-js';
-import {showUsers, supabase} from '../supabase';
+import {
+  insertAdmin,
+  insertCompany,
+  showRolByName,
+  showTypeDoc,
+  showUsers,
+  supabase,
+  type UserProps,
+} from '../supabase';
 
 interface AuthStore {
   user: User | null | undefined;
   setUser: (user: User | null) => void;
-  initAuth: () => Promise<void>;
+  initAuth: () => Promise<() => void>;
 
   loginGoogle: () => Promise<void>;
   cerrarSesion: () => Promise<void>;
@@ -29,25 +37,71 @@ export const useAuthStore = create<AuthStore>((set) => ({
   },
   initAuth: async () => {
     //? iniciar session
-    const {
-      data: {session},
-    } = await supabase.auth.getSession();
-    set({user: session?.user ?? null});
+    try {
+      const {
+        data: {session},
+        error,
+      } = await supabase.auth.getSession();
+      if (error) {
+        console.log(error.message);
+        return () => {};
+      }
+      set({user: session?.user ?? null});
+      const {data} = supabase.auth.onAuthStateChange((event, session) => {
+        console.log('EVENT: ', event);
+        set({user: session?.user ?? null});
+        console.log('session: ', session?.user);
+
+        if (session) {
+          const getUsers = async () => {
+            const authId = session?.user.id;
+            const users = await showUsers({auth_id: authId});
+
+            console.log('user Res: ', users);
+
+            if (!users) {
+              const resCompany = await insertCompany({
+                name: 'Generica',
+                auth_id: authId,
+              });
+              console.log('company: ', resCompany);
+
+              const resTypeDoc = await showTypeDoc({company_id: resCompany.id});
+              // traer el rol id promise
+              const resRol = await showRolByName({name: 'superadmin'});
+              const pUser: UserProps = {
+                doc_type_id: resTypeDoc![0].id,
+                rol_id: resRol.id,
+                email: session.user.email!,
+                registration_date: new Date(),
+                auth_id: authId,
+              };
+
+              await insertAdmin(pUser);
+            }
+          };
+          getUsers();
+        }
+      });
+      return () => {
+        data.subscription.unsubscribe();
+      };
+    } catch (error) {
+      console.log(error);
+      return () => {};
+    }
 
     //* ecuchar cambios
-    supabase.auth.onAuthStateChange((event, session) => {
-      console.log('EVENT: ', event);
-      set({user: session?.user ?? null});
-      console.log('session: ', session?.user);
-
-      if (session) {
-        const getUsers = async () => {
-          const users = await showUsers({auth_id: session?.user.id});
-
-          console.log('user Res: ', users);
-        };
-        getUsers();
-      }
-    });
   },
 }));
+
+//! 4:49:00
+//! 4:49:00
+//! 4:49:00
+//! 4:49:00
+//! 4:49:00
+//! 4:49:00
+//! 4:49:00
+//! 4:49:00
+//! 4:49:00
+//! 4:49:00
